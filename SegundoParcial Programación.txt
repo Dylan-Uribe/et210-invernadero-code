@@ -1,0 +1,179 @@
+PREGUNTA 2: 
+#include <iostream>
+#include "cmath"
+using namespace std;
+
+double factorial(int n)
+{
+    int fact = 1;
+    for (int i=1; i <= n; i++)
+    {
+        fact=fact*i;
+    }
+    return fact;
+}
+
+double mayor = -1000;
+
+void Mayor(double s)
+{
+    if(s > mayor)
+    {
+        mayor= s;
+    }
+}
+
+void validarMayor(int n,double x, double a, double k)
+{
+    if (n >=2)
+    {
+        double s = 0;
+        for (double i = 1; i <= n; i++)
+        {
+            s = s + (((a*k+i) * pow(x,i-1))  / factorial((i*2-1)*pow(k,i*2))) * pow(-1,i);
+
+            if(i >= 2)
+            {
+                Mayor(s);
+            }
+        }
+        cout << "El mayor es: " << mayor;
+    }
+}
+
+
+double sumaSerie(int n, double x, double a, double k)
+{
+    double s = 0;
+    for (double i = 1; i <= n; i++)
+    {
+        s = s + (((a*k+i) * pow(x,i-1))  / factorial((i*2-1)*pow(k,i*2))) * pow(-1,i);
+    }
+
+    return s;
+}
+
+int main() {
+
+    int n;
+    double x,a,k;
+    //PRIMERA PARTE
+    cout << "Digite la cantidad de terminos a sumar: "; cin >> n;
+    cout << "Digite el valor de a: "; cin >> a;
+    cout << "Digite el valor de x: "; cin >> x;
+    cout << "Digite el valor de k: "; cin >> k;
+
+    //SEGUNDA PARTE
+    cout << "La suma para " << n << " terminos es: " << sumaSerie(n,x,a,k) << endl;
+    validarMayor(n,x,a,k);
+
+
+
+
+    return 0;
+}
+
+
+PREGUNTA 1:
+
+#include <iostream>
+#include "cmath"
+using namespace std;
+
+int sumAux = 0;
+
+double sumaSerie(int n, int x, int a, int k)
+{
+    double s = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if(i == 1)
+        {
+            s = s + pow(x,i*a) / pow(k,i*2-1);
+        }
+        else
+        {
+            s = s + a*(pow(x,i*a))/ pow(k,i*2-1);
+        }
+    }
+
+    sumAux = s;
+
+    return s;
+}
+
+string primosS = "";
+string primosN = "";
+
+void primos(int aux)
+{
+    bool dividir = false;
+    if (aux == 1 || aux <1)
+    {
+        dividir = true;
+    }
+    for (int i = 2; i < aux; i++)
+    {
+        if (aux % i == 0)
+        {
+            dividir = true;
+            break;
+        }
+    }
+    if(dividir){
+        primosN = primosN + to_string(aux) + " ";
+    }
+    else{
+        primosS = primosS + to_string(aux) + " ";
+    }
+}
+
+
+
+
+int sumaAux = 0;
+int digitos = 0;
+
+void Digitos()
+{
+    int aux;
+    while (sumAux != 0)
+    {
+        aux = sumAux % 10;
+        cout << aux << " ";
+        primos(aux);
+        sumaAux = sumaAux + aux;
+        sumAux = sumAux/10;
+        digitos ++;
+    }
+}
+
+
+
+
+
+int main() {
+
+    int n;
+    int x,a,k;
+    //PRIMERA PARTE
+    cout << "Digite la cantidad de terminos a sumar: "; cin >> n;
+    cout << "Digite el valor de a: "; cin >> a;
+    cout << "Digite el valor de x: "; cin >> x;
+    cout << "Digite el valor de k: "; cin >> k;
+
+    //SEGUNDA PARTE
+    cout << "La suma para " << n << " terminos es: " << sumaSerie(n,x,a,k) << endl;
+    cout << "Digitos separados: "; Digitos(); cout << endl;
+    cout << "La suma tiene: " << digitos << " digitos" << endl;
+
+    //TERCERA PARTE
+    cout << "Los primos son: "<< primosS << endl;
+    cout << "Los no primos son: " << primosN;
+
+
+
+    return 0;
+}
+
+
